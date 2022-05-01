@@ -1,13 +1,16 @@
 import 'dart:ui';
+
+import 'package:animate_icons/animate_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_demo/provider/omdb_model_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../constants/api_.dart';
 import '../constants/spacers.dart';
 import '../model/movie_model.dart';
+import '../widgets/auto_line_text_util.dart';
 import '../widgets/gradient_text.dart';
-import 'package:animate_icons/animate_icons.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final List<MovieModel> imdb_movie;
@@ -77,9 +80,10 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
             },
           )),
       AnimatedPositioned(
-        curve: Curves.linearToEaseOut,
+        curve: Curves.easeInOutExpo,
         left: 5,
-        bottom: tap ? 10 : -259,
+        /**TODO:Adjust default offset */
+        bottom: tap ? _width * 0.10 : -300,
         duration: const Duration(milliseconds: 300),
         child: buildCard(context),
       ),
@@ -125,7 +129,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
           color: Colors.grey.shade900.withOpacity(0.75),
           child: SizedBox(
             width: _width * 0.95,
-            height: _height * 0.35,
+            height: _height * 0.42,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -137,13 +141,19 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                           child: Icon(
                             Icons.arrow_upward,
                             color: Colors.deepPurpleAccent,
-                            size: 24,
+                            size: 32,
                           ),
                         )
                       : const Center(
                           child: Icon(Icons.arrow_downward,
                               color: Colors.deepPurpleAccent, size: 24),
                         ),
+                  const Center(
+                    child: CustomText(
+                        content: 'open in webview',
+                        size: 12,
+                        color: Colors.white),
+                  ),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: Spacers.spacer16),
@@ -192,9 +202,10 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                                   const BorderRadius.all(Radius.circular(16)),
                             ),
                             child: const Center(
-                              child: Text('open in webview',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              child: CustomText(
+                                  content: 'open in webview',
+                                  size: 12,
+                                  color: Colors.white),
                             )),
                       ),
                       TextButton(

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -12,7 +11,6 @@ import '../widgets/customText.dart';
 import '../widgets/error.dart';
 import '../widgets/gradient_text.dart';
 import '../widgets/movie_grid_item.dart';
-import '../widgets/shimmer.dart';
 
 class MovieSearchHome extends StatefulWidget {
   const MovieSearchHome({Key? key}) : super(key: key);
@@ -83,11 +81,7 @@ class _MovieSearchHomeState extends State<MovieSearchHome> {
                   Switch(
                       value: sort,
                       onChanged: (bool value) {
-                        setState(
-                          () {
-                            sort = value;
-                          },
-                        );
+                        setState(() => sort = value);
                       })
                 ],
               ),
@@ -136,10 +130,10 @@ class _MovieSearchHomeState extends State<MovieSearchHome> {
                         const SizedBox(height: 50),
                         CustomGradientText(
                           size: 16,
-                          content: '$error',
+                          content: error,
                           primaryColor: Colors.lightBlueAccent,
                           secondaryColor: Colors.deepPurpleAccent,
-                        )
+                        ),
                       ],
                     )) //ShimmerList()
                   : Scaffold(
@@ -165,6 +159,11 @@ class _MovieSearchHomeState extends State<MovieSearchHome> {
                     isSearching = false;
                     _editingController.clear();
                   });
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  }
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
