@@ -1,8 +1,11 @@
-# movie_demo
+## TrueLink: Flutter movie application demo
+ 
+    Powered by: 
+  The Open Movie Database [omdbapi](http://www.omdbapi.com/)
 
-A new Flutter project.
+  
 
-## How to run
+### How to run
      fork the repo 
      open terminal 
      cd ~ movie_demo
