@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,11 +24,13 @@ class MovieSearchHome extends StatefulWidget {
 class _MovieSearchHomeState extends State<MovieSearchHome> {
   bool isSearching = false;
   late TextEditingController _editingController;
-  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-  final GlobalKey _scaffoldKey = new GlobalKey();
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  final GlobalKey _scaffoldKey = GlobalKey();
   String searchText = '';
   bool isLoading = true;
   bool sort = false;
+  String error = '';
+
   @override
   void initState() {
     super.initState();
@@ -89,20 +94,21 @@ class _MovieSearchHomeState extends State<MovieSearchHome> {
             ),
           ])),
       appBar: AppBar(
-          leading: Text(''),
-          centerTitle: true,
+          leading: const Text(''),
           title: const CustomGradientText(
               content: 'Movie App',
               primaryColor: Colors.lightBlueAccent,
               secondaryColor: Colors.deepPurpleAccent,
               size: 18),
           bottom: PreferredSize(
-              child: buildAppBar(), preferredSize: Size.fromHeight(40))),
+              child: buildAppBar(), preferredSize: const Size.fromHeight(40))),
       body: FutureBuilder(
-          future: searchMovies(searchText),
+          future: searchMovies(searchText.trim()),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
               return GridView.builder(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
                   padding: const EdgeInsets.symmetric(
                       vertical: Spacers.spacer16 * 2,
                       horizontal: Spacers.spacer8),
@@ -117,12 +123,31 @@ class _MovieSearchHomeState extends State<MovieSearchHome> {
                     return MovieGridItem(movies: snapshot.data, index: index);
                   });
             } else if (snapshot.hasError) {
+              error = snapshot.error.toString();
+
               return isSearching
-                  ? const ShimmerList()
+                  ? Center(
+                      child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        (Platform.isIOS)
+                            ? const CupertinoActivityIndicator()
+                            : const CircularProgressIndicator(),
+                        const SizedBox(height: 50),
+                        CustomGradientText(
+                          size: 16,
+                          content: '$error',
+                          primaryColor: Colors.lightBlueAccent,
+                          secondaryColor: Colors.deepPurpleAccent,
+                        )
+                      ],
+                    )) //ShimmerList()
                   : Scaffold(
-                      body: KErrorWidget(
-                          onPressed: () {},
-                          message: 'Movies you search for will appear here'),
+                      body: Center(
+                        child: KErrorWidget(
+                            onPressed: () {},
+                            message: 'Movies you search for will appear here'),
+                      ),
                     );
             }
             return const Center(child: CircularProgressIndicator());
@@ -148,7 +173,7 @@ class _MovieSearchHomeState extends State<MovieSearchHome> {
                           style: TextStyle(color: Colors.blue, fontSize: 18))),
                 ),
               )
-            : Text("")
+            : const Text("")
       ],
       elevation: 0,
       title: CupertinoTextField(
@@ -168,6 +193,7 @@ class _MovieSearchHomeState extends State<MovieSearchHome> {
           suffix: GestureDetector(
               onTap: () {
                 setState(() {
+                  isSearching = false;
                   _editingController.clear();
                 });
               },

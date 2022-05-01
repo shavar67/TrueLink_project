@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../constants/spacers.dart';
+import '../model/movie_model.dart';
+
 class ShimmerList extends StatefulWidget {
-  const ShimmerList({Key? key}) : super(key: key);
+  const ShimmerList({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ShimmerList> createState() => _ShimmerListState();
 }
 
 class _ShimmerListState extends State<ShimmerList> {
-  bool _enabled = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,57 +25,28 @@ class _ShimmerListState extends State<ShimmerList> {
           children: <Widget>[
             Expanded(
               child: Shimmer.fromColors(
-                baseColor: Colors.grey,
-                highlightColor: Colors.grey,
-                enabled: _enabled,
-                child: ListView.builder(
-                  itemBuilder: (_, __) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: 80.0,
-                          height: 80.0,
-                          color: Colors.white,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                width: double.infinity,
-                                height: 12.0,
-                                color: Colors.white,
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 2.0),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: 12.0,
-                                color: Colors.white,
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 2.0),
-                              ),
-                              Container(
-                                width: 40.0,
-                                height: 12.0,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  itemCount: 10,
-                ),
-              ),
+                  baseColor: Colors.grey.shade400,
+                  highlightColor: Colors.grey.shade200,
+                  child: GridView.builder(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: Spacers.spacer16 * 2,
+                          horizontal: Spacers.spacer8),
+                      itemCount: 8,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        childAspectRatio: .95,
+                      ),
+                      itemBuilder: (context, index) {
+                        return Container(
+                            decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(Spacers.spacer8)),
+                        ));
+                      })),
             ),
           ],
         ),

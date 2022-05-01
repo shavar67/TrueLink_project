@@ -20,6 +20,6 @@ class CustomText extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: GoogleFonts.roboto(
-            fontSize: size, fontWeight: FontWeight.bold, color: color));
+            fontSize: size, fontWeight: FontWeight.w700, color: color));
   }
 }

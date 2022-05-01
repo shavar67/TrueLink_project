@@ -23,7 +23,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
   late bool tap;
   bool isLiked = false;
   late AnimateIconController _animationController;
-  String url = '${ApiConstants.OMDBAPIURL}';
+  String url = ApiConstants.OMDBAPIURL;
   @override
   void initState() {
     super.initState();
@@ -50,7 +50,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                 fit: BoxFit.cover,
                 alignment: FractionalOffset.topCenter,
                 image: widget.imdb_movie[widget.index].poster == 'N/A'
-                    ? NetworkImage(
+                    ? const NetworkImage(
                         'https://api.lorem.space/image/movieProvider?w=150&h=220')
                     : NetworkImage(
                         '${widget.imdb_movie[widget.index].poster}')),
@@ -59,7 +59,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
       ),
       Positioned.fill(
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Container(
             width: _width,
             height: _height,
@@ -201,29 +201,15 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: isLiked
-                              ? IconButton(
-                                  icon: const Icon(
-                                    Icons.thumb_up,
-                                    color: Colors.red,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      isLiked = !isLiked;
-                                    });
-                                  },
-                                )
-                              : IconButton(
-                                  icon: const Icon(
-                                    Icons.thumb_down,
-                                    color: Colors.grey,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      isLiked = !isLiked;
-                                    });
-                                  },
-                                ))
+                          child: IconButton(
+                            icon: Icon(Icons.thumb_up,
+                                color: (isLiked) ? Colors.red : Colors.grey),
+                            onPressed: () {
+                              setState(() {
+                                isLiked = !isLiked;
+                              });
+                            },
+                          ))
                     ],
                   )
                 ],
