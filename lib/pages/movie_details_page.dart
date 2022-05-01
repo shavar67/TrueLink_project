@@ -21,6 +21,7 @@ class MovieDetailsScreen extends StatefulWidget {
 
 class _MovieDetailsScreen extends State<MovieDetailsScreen> {
   late bool tap;
+  bool isLiked = false;
   late AnimateIconController _animationController;
   String url = '${ApiConstants.OMDBAPIURL}';
   @override
@@ -42,7 +43,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
     return Scaffold(
         body: Stack(children: [
       Hero(
-        tag: '${movieProvider.movie.poster}',
+        tag: '${movieProvider.movie.poster}${widget.index}',
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -121,7 +122,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
-          color: Colors.black.withOpacity(.83),
+          color: Colors.grey.shade900.withOpacity(0.75),
           child: SizedBox(
             width: _width * 0.95,
             height: _height * 0.35,
@@ -132,13 +133,17 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   !tap
-                      ? const Icon(
-                          Icons.arrow_upward,
-                          color: Colors.deepPurpleAccent,
-                          size: 24,
+                      ? const Center(
+                          child: Icon(
+                            Icons.arrow_upward,
+                            color: Colors.deepPurpleAccent,
+                            size: 24,
+                          ),
                         )
-                      : const Icon(Icons.arrow_downward,
-                          color: Colors.deepPurpleAccent, size: 24),
+                      : const Center(
+                          child: Icon(Icons.arrow_downward,
+                              color: Colors.deepPurpleAccent, size: 24),
+                        ),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: Spacers.spacer16),
@@ -150,15 +155,15 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                     ),
                   ),
                   CustomGradientText(
-                      size: 14,
-                      content: 'Released: ${movieProvider.movie.year}',
-                      primaryColor: Colors.deepPurpleAccent,
-                      secondaryColor: Colors.lightBlueAccent),
+                      size: 18,
+                      content: 'Year Released: ${movieProvider.movie.year}',
+                      primaryColor: Colors.lightBlueAccent,
+                      secondaryColor: Colors.deepPurpleAccent),
                   CustomGradientText(
-                      size: 12,
+                      size: 14,
                       content: '${movieProvider.movie.plot}',
-                      primaryColor: Colors.deepPurpleAccent,
-                      secondaryColor: Colors.lightBlueAccent),
+                      primaryColor: Colors.lightBlueAccent,
+                      secondaryColor: Colors.deepPurpleAccent),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -173,10 +178,10 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                             width: 150,
                             height: 30,
                             decoration: BoxDecoration(
-                              color: Colors.deepPurpleAccent,
+                              color: Colors.deepPurpleAccent.withOpacity(0.7),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.white.withOpacity(0.3),
+                                  color: Colors.black.withOpacity(0),
                                   spreadRadius: 3,
                                   blurRadius: 7,
                                   offset: const Offset(
@@ -187,23 +192,38 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                                   const BorderRadius.all(Radius.circular(16)),
                             ),
                             child: const Center(
-                              child: Text('learn more',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold)),
+                              child: Text('open in webview',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                             )),
                       ),
                       TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.thumb_up,
-                              color: Colors.lightBlueAccent,
-                            ),
-                            onPressed: () {},
-                          ))
+                          child: isLiked
+                              ? IconButton(
+                                  icon: const Icon(
+                                    Icons.thumb_up,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      isLiked = !isLiked;
+                                    });
+                                  },
+                                )
+                              : IconButton(
+                                  icon: const Icon(
+                                    Icons.thumb_down,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      isLiked = !isLiked;
+                                    });
+                                  },
+                                ))
                     ],
                   )
                 ],
