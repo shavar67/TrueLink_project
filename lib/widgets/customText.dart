@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomText extends StatelessWidget {
@@ -15,7 +15,7 @@ class CustomText extends StatelessWidget {
     return AutoSizeText(
       content,
       style: GoogleFonts.lato(
-          fontSize: size, fontWeight: FontWeight.bold, color: color),
+          fontSize: size, fontWeight: FontWeight.w400, color: color),
     );
   }
 }

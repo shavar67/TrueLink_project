@@ -16,7 +16,7 @@ class CustomGradientText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientText(
-      '$content',
+      content,
       style: TextStyle(fontSize: size, fontWeight: FontWeight.w500),
       gradient: LinearGradient(
           begin: Alignment.topLeft,

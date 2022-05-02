@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:animate_icons/animate_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_demo/provider/omdb_model_provider.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +24,6 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreen extends State<MovieDetailsScreen> {
   late bool tap;
   bool isLiked = false;
-  late AnimateIconController _animationController;
   String url = ApiConstants.OMDBAPIURL;
   @override
   void initState() {
@@ -73,12 +71,16 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
       Positioned(
           top: 50,
           child: IconButton(
-            color: Colors.deepPurpleAccent,
+            color: Colors.blue,
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
               Navigator.of(context).pop();
             },
           )),
+      const Positioned(
+          top: 66.5,
+          left: 30,
+          child: CustomText(content: 'Back', size: 12, color: Colors.blue)),
       AnimatedPositioned(
         curve: Curves.easeInOutExpo,
         left: 5,
@@ -89,7 +91,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
       ),
       Positioned(
         top: 70,
-        left: 70,
+        left: 80,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
@@ -137,35 +139,45 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   !tap
-                      ? const Center(
-                          child: Icon(
-                            Icons.arrow_upward,
-                            color: Colors.deepPurpleAccent,
-                            size: 32,
-                          ),
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.arrow_upward,
+                              color: Colors.deepPurpleAccent,
+                              size: 24,
+                            ),
+                            SizedBox(width: 20),
+                            CustomText(
+                                content: 'Show Summary',
+                                size: 12,
+                                color: Colors.white),
+                          ],
                         )
-                      : const Center(
-                          child: Icon(Icons.arrow_downward,
-                              color: Colors.deepPurpleAccent, size: 24),
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.arrow_downward,
+                                color: Colors.deepPurpleAccent, size: 24),
+                            SizedBox(width: 20),
+                            CustomText(
+                                content: 'Hide Summary',
+                                size: 12,
+                                color: Colors.white),
+                          ],
                         ),
-                  const Center(
-                    child: CustomText(
-                        content: 'open in webview',
-                        size: 12,
-                        color: Colors.white),
-                  ),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: Spacers.spacer16),
+                  Padding(
+                    padding: const EdgeInsets.only(top: Spacers.spacer16),
+                    child: Center(
                       child: CustomGradientText(
-                          size: 20,
+                          size: 18,
                           content: '${movieProvider.movie.title}',
                           primaryColor: Colors.deepPurpleAccent,
                           secondaryColor: Colors.lightBlueAccent),
                     ),
                   ),
                   CustomGradientText(
-                      size: 18,
+                      size: 16,
                       content: 'Year Released: ${movieProvider.movie.year}',
                       primaryColor: Colors.lightBlueAccent,
                       secondaryColor: Colors.deepPurpleAccent),
