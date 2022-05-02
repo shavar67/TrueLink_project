@@ -22,7 +22,7 @@ class MovieDetailsScreen extends StatefulWidget {
 }
 
 class _MovieDetailsScreen extends State<MovieDetailsScreen> {
-  late bool tap;
+  late bool isDismissed;
   bool isLiked = false;
   String url = ApiConstants.OMDBAPIURL;
   @override
@@ -32,7 +32,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
         Provider.of<OmdbModelProvider>(context, listen: false);
     movieProvider.getMovieData(widget.imdb_movie[widget.index].imdbID);
     setState(() {
-      tap = false;
+      isDismissed = false;
     });
   }
 
@@ -85,7 +85,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
         curve: Curves.easeInOutExpo,
         left: 5,
         /**TODO:Adjust default offset */
-        bottom: tap ? _width * 0.10 : -300,
+        bottom: isDismissed ? _width * 0.10 : -300,
         duration: const Duration(milliseconds: 300),
         child: buildCard(context),
       ),
@@ -121,7 +121,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          tap = !tap;
+          isDismissed = !isDismissed;
         });
       },
       child: Card(
@@ -138,7 +138,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  !tap
+                  !isDismissed
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
