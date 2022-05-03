@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../constants/api_.dart';
 import '../constants/spacers.dart';
 import '../model/movie_model.dart';
-import '../widgets/auto_line_text_util.dart';
+import '../widgets/customText.dart';
 import '../widgets/gradient_text.dart';
 
 class MovieDetailsScreen extends StatefulWidget {

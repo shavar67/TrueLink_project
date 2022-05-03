@@ -2,11 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:movie_demo/pages/movie_details_page.dart';
-import 'package:movie_demo/widgets/auto_line_text_util.dart';
 
-import '../constants/route_constants.dart';
 import '../constants/spacers.dart';
 import '../model/movie_model.dart';
+import 'customText.dart';
 
 class MovieGridItem extends StatefulWidget {
   final int index;
@@ -43,7 +42,7 @@ class _GridItemState extends State<MovieGridItem> {
                   color: Colors.black.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 5,
-                  offset: Offset(0, 3), // changes position of shadow
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
               image: DecorationImage(

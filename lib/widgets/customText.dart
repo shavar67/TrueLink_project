@@ -14,6 +14,7 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoSizeText(
       content,
+      maxLines: 1,
       style: GoogleFonts.lato(
           fontSize: size, fontWeight: FontWeight.w400, color: color),
     );
