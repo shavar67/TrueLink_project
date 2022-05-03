@@ -20,7 +20,7 @@ class MovieSearchHome extends StatefulWidget {
 }
 
 class _MovieSearchHomeState extends State<MovieSearchHome> {
-  bool isSearching = false;
+  late bool isSearching;
   late TextEditingController _editingController;
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   final GlobalKey _scaffoldKey = GlobalKey();
