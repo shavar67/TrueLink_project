@@ -73,19 +73,19 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen>
           ),
         ),
       ),
-      Positioned(
-          top: 50,
-          child: IconButton(
-            color: Colors.blue,
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )),
-      const Positioned(
-          top: 66.5,
-          left: 30,
-          child: CustomText(content: 'Back', size: 12, color: Colors.blue)),
+      // Positioned(
+      //     top: 50,
+      //     child: IconButton(
+      //       color: Colors.blue,
+      //       icon: const Icon(Icons.arrow_back_ios),
+      //       onPressed: () {
+      //         Navigator.of(context).pop();
+      //       },
+      //     )),
+      // const Positioned(
+      //     top: 66.5,
+      //     left: 30,
+      //     child: CustomText(content: 'Back', size: 12, color: Colors.blue)),
       AnimatedPositioned(
         curve: Curves.easeInOutExpo,
         left: 5,
