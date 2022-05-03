@@ -191,21 +191,20 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen>
                         secondaryColor: Colors.lightBlueAccent),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 20),
                 CustomGradientText(
                     size: 16,
                     content: 'Year Released: ${movieProvider.movie.year}',
                     primaryColor: Colors.lightBlueAccent,
                     secondaryColor: Colors.deepPurpleAccent),
+                const SizedBox(height: 10),
                 CustomGradientText(
                     size: 14,
                     content: '${movieProvider.movie.plot}',
                     primaryColor: Colors.lightBlueAccent,
                     secondaryColor: Colors.deepPurpleAccent),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
                       onTap: () {
@@ -233,7 +232,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen>
                           ),
                           child: const Center(
                             child: CustomText(
-                                content: 'open in webview',
+                                content: 'Open in webview',
                                 size: 12,
                                 color: Colors.white),
                           )),
