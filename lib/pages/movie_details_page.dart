@@ -167,7 +167,7 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen>
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                defaultPosition = -275;
+                                defaultPosition = -278;
                                 isDismissed = !isDismissed;
                               });
                             },
@@ -181,6 +181,9 @@ class _MovieDetailsScreen extends State<MovieDetailsScreen>
                               color: Colors.white),
                         ],
                       ),
+                const SizedBox(
+                  height: 20,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: Spacers.spacer16),
                   child: Center(
